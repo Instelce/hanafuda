@@ -1,4 +1,4 @@
-package org.hanafuda.back.domain.games.koikoi
+package org.hanafuda.back.domain.game.koikoi
 
 import org.hanafuda.back.domain.core.models.Card
 

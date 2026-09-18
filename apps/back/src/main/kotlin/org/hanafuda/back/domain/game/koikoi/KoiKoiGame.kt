@@ -3,6 +3,8 @@ package org.hanafuda.back.domain.games.koikoi
 import org.hanafuda.back.domain.core.interfaces.Game
 import org.hanafuda.back.domain.core.interfaces.GameAction
 import org.hanafuda.back.domain.core.models.Deck
+import org.hanafuda.back.domain.game.koikoi.KoiKoiState
+import org.hanafuda.back.domain.game.koikoi.PlayerState
 
 class KoiKoiGame(
     override val id: String,
@@ -47,23 +49,4 @@ class KoiKoiGame(
         return state
     }
 
-}
-
-fun main() {
-    println("🎮 --- DÉMARRAGE DE LA PARTIE --- 🎮")
-    val game = KoiKoiGame("partie-test", "JoueurA", "JoueurB")
-    game.start()
-
-    val state = game.getGameState() as KoiKoiState
-
-    println("\n🎴 Cartes sur la table (${state.tableCards.size}) :")
-    println(state.tableCards.joinToString { it.id })
-
-    println("\n✋ Main du Joueur A (${state.player1.hand.size}) :")
-    println(state.player1.hand.joinToString { it.id })
-
-    println("\n✋ Main du Joueur B (${state.player2.hand.size}) :")
-    println(state.player2.hand.joinToString { it.id })
-
-    println("\n👉 C'est au tour de : ${state.currentTurnPlayerId}")
 }

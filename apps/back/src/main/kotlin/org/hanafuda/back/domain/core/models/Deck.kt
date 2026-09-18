@@ -60,7 +60,7 @@ class Deck(private var cards: MutableList<Card> = createStandardDeck()) {
 
             // --- AOUT (Prunier) ---
             deck.add(Card(Month.AUGUST, CardType.HIKARI))
-            deck.add(Card(Month.AUGUST, CardType.TANZAKU))
+            deck.add(Card(Month.AUGUST, CardType.TANE))
             deck.add(Card(Month.AUGUST, CardType.KASU))
             deck.add(Card(Month.AUGUST, CardType.KASU))
 
