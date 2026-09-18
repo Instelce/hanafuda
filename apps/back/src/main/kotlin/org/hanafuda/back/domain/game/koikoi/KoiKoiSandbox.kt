@@ -9,7 +9,7 @@ import org.hanafuda.back.domain.game.koikoi.yaku.YakuEvaluator
 
 fun main() {
     println("🎮 --- DÉMARRAGE DE LA PARTIE DE KOI-KOI --- 🎮\n")
-    val game = KoiKoiGame("partie-test", "JoueurA", "JoueurB")
+    val game = KoiKoiGame("partie-test", "Ronan", "Celestin")
     game.start()
 
     val state = game.getGameState() as KoiKoiState
@@ -33,7 +33,6 @@ fun main() {
     println("\n=======================================================")
     println("🧪 --- TEST DU MOTEUR DE YAKU (YAKU EVALUATOR) --- 🧪")
 
-    // On simule une fin de tour en injectant artificiellement des cartes gagnées au Joueur A
     val cartesGagnees = listOf(
         // On lui donne 4 Lumières dont la pluie (Ame-Shiko)
         Card(Month.JANUARY, CardType.HIKARI),
@@ -59,7 +58,7 @@ fun main() {
     println("\n🃏 Cartes collectées par ${state.player1.id} (${state.player1.collectedCards.size}) :")
     println(formatCards(state.player1.collectedCards))
 
-    val yakus = YakuEvaluator.evaluate(state.player1.collectedCards)
+    val yakus = YakuEvaluator.evaluate(state.player1.collectedCards, state.month)
     println("\n🏆 Yaku obtenus :")
     if (yakus.isEmpty()) {
         println("Aucun Yaku pour le moment.")

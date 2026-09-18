@@ -14,3 +14,9 @@ enum class Month {
     NOVEMBER,   // Saule
     DECEMBER    // Paulownia
 }
+
+fun Month.next(): Month? {
+    val allMonths = Month.entries.toTypedArray()
+    val nextIndex = this.ordinal + 1
+    return if (nextIndex < allMonths.size) allMonths[nextIndex] else null
+}

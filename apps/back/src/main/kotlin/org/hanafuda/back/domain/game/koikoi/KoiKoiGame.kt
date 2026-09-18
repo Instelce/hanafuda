@@ -3,6 +3,8 @@ package org.hanafuda.back.domain.games.koikoi
 import org.hanafuda.back.domain.core.interfaces.Game
 import org.hanafuda.back.domain.core.interfaces.GameAction
 import org.hanafuda.back.domain.core.models.Deck
+import org.hanafuda.back.domain.core.models.Month
+import org.hanafuda.back.domain.core.models.next
 import org.hanafuda.back.domain.game.koikoi.KoiKoiState
 import org.hanafuda.back.domain.game.koikoi.PlayerState
 
@@ -12,11 +14,12 @@ class KoiKoiGame(
     player2Id: String
 ) : Game {
 
-    private val deck = Deck()
+    private var deck = Deck()
     private val state = KoiKoiState(
         gameId = id,
         player1 = PlayerState(id = player1Id),
-        player2 = PlayerState(id = player2Id)
+        player2 = PlayerState(id = player2Id),
+        month = Month.JANUARY
     )
 
     override val isFinished: Boolean
@@ -47,6 +50,31 @@ class KoiKoiGame(
 
     override fun getGameState(): Any {
         return state
+    }
+
+    fun prepareNextRound() {
+        val nextMonth = state.month.next()
+
+        if (nextMonth != null) {
+            state.month = nextMonth
+
+            // 🧹 Nettoyage du plateau et des joueurs
+            state.tableCards.clear()
+            state.player1.hand.clear()
+            state.player1.collectedCards.clear()
+            state.player2.hand.clear()
+            state.player2.collectedCards.clear()
+
+            // 🎴 Nouveau paquet et distribution
+            deck = Deck()
+            deck.shuffle()
+            dealCards()
+
+            // TODO: Gérer le changement de 'currentTurnPlayerId' (L'Oya du tour précédent commence)
+
+        } else {
+            state.isGameOver = true
+        }
     }
 
 }
